@@ -22,8 +22,9 @@ public class TaxService {
      * @return taxCalcResult 税込計算結果
      */
     public double getTaxCalcResult(int priceWithoutTax) {
-    	double taxCalcResult = priceWithoutTax / (1 - 0.1);
+    	double taxCalcResult = priceWithoutTax + (priceWithoutTax * this.getTaxRate());
     	return taxCalcResult;
+    	
     }
 
     /**
@@ -36,8 +37,7 @@ public class TaxService {
      * @return 税率
      */
     public double getTaxRate() {
-    	double taxRate = 0.1;
-    	return taxRate;
+    	return this.TAX_RATE;
     	
     }
 }
