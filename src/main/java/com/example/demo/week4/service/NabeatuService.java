@@ -20,7 +20,11 @@ public class NabeatuService {
      * @return totalNum 1から入力値(inputNumber)までの数値の和
      */
     public int getTotalNum(int inputNumber) {
-
+    	int totalSum = 0;
+    	for (int i=1; i <= inputNumber; i++) {
+    		totalSum = totalSum + i;
+    	} 
+    	return totalSum;
     }
 	
     /**
@@ -38,7 +42,14 @@ public class NabeatuService {
      * @return flg アホになる('3を含む数字'または'3の倍数')かどうかの結果
      */
     public boolean isAhoNumber(int totalNum) {
-
+    	boolean flg;
+    	if (totalNum % 3 == 0 || Integer.toString(totalNum).contains("3")) {
+    		flg = true;
+    		return flg;
+    	}  else {
+    		flg = false;
+    		return flg;
+    	}
     }
 
 }
