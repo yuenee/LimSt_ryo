@@ -20,7 +20,12 @@ public class CompoundInterestService {
      */
 	
 	public double getResult(int principal,double rate,int years) {
-
+		double interestRate = principal; 
+		for (int i = 1; i <= years; i++) {
+			interestRate = interestRate * (rate / 100 + 1);
+		}
+	    double result = interestRate;
+	    return result;
 	}
 
 }
