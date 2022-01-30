@@ -19,7 +19,14 @@ public class EndlessOmikujiService {
      * @return result おみくじの結果
      */
     public String getResult() {
-
+    	String[] fortuneTellling = {"大吉", "中吉", "小吉", "末吉", "凶"};
+    	Random r = new Random();
+    	while (true) {
+    		String result = fortuneTellling[r.nextInt(5)];
+    	    if (result.equals("凶")) {
+    	        return result;
+    	    }
+     	}
     }
 
     /**
@@ -34,6 +41,6 @@ public class EndlessOmikujiService {
      * @return resultComment 無限おみくじの仕様に沿ったコメント
      */
     public String getResultComment() {
-
+    	return "凶ですね。残念でした。";
     }
 }
