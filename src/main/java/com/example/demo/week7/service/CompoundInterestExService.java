@@ -23,7 +23,11 @@ public class CompoundInterestExService {
      * @return list 各年の複利計算結果
      */
     public List<Double> getPriceList(int principal, double rate, int year) {
-
+    	List<Double> list = new ArrayList<Double>();
+		for (int i = 1; i <= year; i++) {
+			list.add(principal * ((rate / 100) + 1));
+		}
+    	return list;
     }
 
     /**
@@ -47,7 +51,12 @@ public class CompoundInterestExService {
      * @return FAILURE_MSG(目標金額に達成しなかった場合) or SUCCESS_MSG(目標金額に達成した場合)
      */
     public String getIsOveredYearMsg(List<Double> list, int targetPrice) {
-
+    	int year = getOveredTargetPriceYear(list, targetPrice);
+    	if (year > 0) {
+    		return year + "年目に達成しました。";
+    	} else {
+    		return "残念ながら目標額に到達できませんでした。";
+    	}
     }
 
     /**
@@ -68,6 +77,11 @@ public class CompoundInterestExService {
      * @return year 目標金額に到達した年数(到達しなかった場合は0)
      */
     public int getOveredTargetPriceYear(List<Double> list, int targetPrice) {
-
+    	for (int i = 0; i < list.size(); i++) {
+    		if (list.get(i) > targetPrice) {
+    			return i + 1;
+    		}
+    	}
+		return 0;
     }
 }
