@@ -1,5 +1,6 @@
 package com.example.demo.week6.service;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,8 @@ public class CalculatorService {
      *  @return calcTypeNameArray 演算子の配列
      */
 	public String[] getCalcTypeNameArray() {
-
+		String[] calcTypeNameArray = {"足し算","引き算","掛け算","割り算"};
+		return calcTypeNameArray;
 	}
 
     /**
@@ -37,7 +39,12 @@ public class CalculatorService {
      *  @return calcTypes 演算子選択肢
      */
 	public Map<String, String> getCalcTypes(){
-
+		Map<String, String> calcTypes = new HashMap<>();
+		calcTypes.put("add", "+");
+		calcTypes.put("sub","-" );
+		calcTypes.put("mul","*");
+		calcTypes.put("div","/");
+		return calcTypes;
 	}
 
     /**
@@ -52,8 +59,26 @@ public class CalculatorService {
      *  @return pysicalCalcType 選択演算子の和名
      */
 	public String convertPysicalCalcType(String calcType) {
-
+		String pysicalCalcType = "";
+		if (calcType.equals("add")) {
+			calcType = getCalcTypeNameArray()[0];
+			pysicalCalcType = calcType;
+			return pysicalCalcType;
+		}else if (calcType.equals("sub")){
+			calcType = getCalcTypeNameArray()[1];
+			pysicalCalcType = calcType;
+			return pysicalCalcType;
+		}else if (calcType.equals("mul")){
+			calcType = getCalcTypeNameArray()[2];
+			pysicalCalcType = calcType;
+			return pysicalCalcType;
+		}else {
+			calcType = getCalcTypeNameArray()[3];
+			pysicalCalcType = calcType;
+			return pysicalCalcType;
+		}
 		//calcTypeNameArrayで宣言した、各演算子のインデックスを定義(定数)
+		
 		
 		//pysicalCalcTypeの取得処理
 
@@ -72,7 +97,21 @@ public class CalculatorService {
      *  @return result 計算結果
      */
 	public double calculate(String calcType,double firstNum,double secondNum) {
-
+		double result;
+		if (calcType.equals("add")) {
+			result = firstNum + secondNum;
+			return result;
+		}else if (calcType.equals("sub")) {
+			result = firstNum - secondNum;
+			return result;
+		}else if (calcType.equals("mul")) {
+			result = firstNum * secondNum;
+			return result;
+		}else {
+			result = firstNum / secondNum;
+			return result;
+		}
+		
 	}
     
 	/**
@@ -86,9 +125,8 @@ public class CalculatorService {
      *  @return result 計算結果
      */
 	public double add(double firstNum , double secondNum) {
-
-		// 結果格納用変数
-
+		double result = firstNum + secondNum;
+		return result;		// 結果格納用変数
 	}
 
 	/**
@@ -102,9 +140,8 @@ public class CalculatorService {
      *  @return result 計算結果
      */
 	public double sub(double firstNum , double secondNum) {
-
-		// 結果格納用変数
-
+		double result = firstNum - secondNum;
+		return result; // 結果格納用変
 	}
 
 	/**
@@ -118,7 +155,8 @@ public class CalculatorService {
      *  @return result 計算結果
      */
 	public double mul(double firstNum , double secondNum) {
-
+		double result = firstNum * secondNum;
+		return result;
 		// 結果格納用変数
 
 	}
@@ -134,7 +172,8 @@ public class CalculatorService {
      *  @return result 計算結果
      */
 	public double div(double firstNum , double secondNum) {
-
+		double result = firstNum / secondNum;
+		return result;
 		// 結果格納用変数
 
 	}
