@@ -1,9 +1,11 @@
 package com.example.demo.week10.service;
 
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.springframework.stereotype.Service;
-
+import java.util.Collections;
 @Service
 public class NumeronService {
     /**
@@ -16,7 +18,9 @@ public class NumeronService {
      * ・ターン数(turn) ターン数の初期値は0
      * </pre>
      */
-
+	private final List<Integer> answerList = new ArrayList<>();
+	private final List<Integer> attackList = new ArrayList<>();
+	private final int turn = 0;
     /**
      * <pre>
      *【問題文】
@@ -24,6 +28,8 @@ public class NumeronService {
      * </pre>
      */
     public NumeronService() {
+    	init();
+    	
     }
 
     /**
@@ -36,7 +42,17 @@ public class NumeronService {
      * @return answerList ランダム数値3桁が格納されるリスト(答えの数列)
      */
     public List<Integer> init() {
-    }
+    	List<Integer> answerList = new ArrayList<Integer>();
+    	Integer[] array = {1,2,3,4,5,6,7,8,9};
+    	List<Integer> list =Arrays.asList(array);
+    	Collections.shuffle(list);
+       	answerList.add(list.get(1));
+       	answerList.add(list.get(2));
+       	answerList.add(list.get(3));
+    	return answerList; 	
+    	}
+	    
+    
 
     /**
      * <pre>
@@ -58,26 +74,34 @@ public class NumeronService {
      * @return attackResult
      */
     public List<Integer> getAttackResult(List<Integer> answerList, String attackNumber) {
-
+    
         //attackListを初期化
-
+    	 List<Integer> attackList = new ArrayList<Integer>();
         // attackNumberを1桁区切りにして、String型ListのnumberListに格納
-
+    	 List<String> numberList = new ArrayList<String>();  	 
+    	 String[] abc = attackNumber.split(",",2);
+    	 numberList.add(abc[0]);
+    	 numberList.add(abc[1]);
+    	 numberList.add(abc[2]);
         // String⇒intに変換のうえ、attackListに格納
-
+    	 int intVersion1 = Integer.parseInt(numberList.get(0));
+    	 attackList.add(intVersion1);
+    	 int intVersion2 = Integer.parseInt(numberList.get(1));
+    	 attackList.add(intVersion2);
+    	 int intVersion3 = Integer.parseInt(numberList.get(2));
+    	 attackList.add(intVersion3);
         // hitResultにgetHitCount呼び出し結果を格納
-
-        // String⇒intに変換のうえ、attackListに格納
-
-        // hitResultにgetHitCount呼び出し結果を格納
-
+    	 int hitResult = getHitCount(answerList, attackList); 
         // blowResultにgetBlowCount呼び出し結果を格納
-
+    	 int blowResult = getBlowCount(answerList, attackList);
         // attackResultに判定結果を格納
-
+    	 List<Integer> attackResult = new ArrayList<Integer>();
+    	 attackResult.add(hitResult);
+    	 attackResult.add(blowResult);
+    	 return attackList;
     }
 
-    /**
+	/**
      * <pre>
      *【問題文】
      *　getHitCountは、引数のanswerlist(答えの数列)とattackList(入力数列)において、
@@ -89,7 +113,15 @@ public class NumeronService {
      * @param attackList 入力数列
      * @return hitCount 数値・場所共にあっている数
      */
-    public int getHitCount(List<Integer> answerList, List<Integer> attackList) {
+    public int getHitCount(List<Integer> answerList, List<Integer> attackList){
+    	int hitcount = 0;
+    	for (int i = 0; i < answerList.size(); i++) {
+    		if (answerList.get(i) == attackList.get(i)) {
+        		hitcount++;
+        	}
+    		
+    	}return hitcount;
+    
         // 数値と場所があっている場合の判定
     }
 
@@ -106,6 +138,14 @@ public class NumeronService {
      * @return blowCount 数値のみあっている数
      */
     public int getBlowCount(List<Integer> answerList, List<Integer> attackList) {
+    	int blowCount = 0;
+    	for (int i = 0; i < 3; i++) {
+    		for (int j = 0; j < 3; j++) {
+    			if(answerList.get(i) == attackList.get(j)){
+    				blowCount++;
+    			}
+    		}
+    	}return blowCount;
         // 数値を使用しているが、場所があっていない場合の判定
     }
 
@@ -117,6 +157,7 @@ public class NumeronService {
      * </pre>
      */
     public void addturn() {
+    	System.out.println("ターン追加させて頂きます");
     }
 
     /**
@@ -127,6 +168,7 @@ public class NumeronService {
      * @return answerList 答えのリスト
      */
     public List<Integer> getAnswerList() {
+    	return answerList;
     }
 
     /**
@@ -137,6 +179,7 @@ public class NumeronService {
      *  @return turn ターン数
      */
     public int getTurn() {
+    	return turn;
     }
 
     /**
@@ -146,12 +189,25 @@ public class NumeronService {
      * ・称号を判定する処理を記載してください。
      * ・判定結果はString型Listに格納して返却してください。
      *  rankの0番目の要素にはランクの結果
-     *  rankの0番目の要素にはメッセージの結果
+     *  rankの1番目の要素にはメッセージの結果
      * ※ターン数に応じた、ランク付け・メッセージは任意のモノを指定
      *  </pre>
      *  @param turn 経過ターン数
      *  @return rank　
      */
     public List<String> getRank(int turn) {
+    	List<String> rank = new ArrayList<String>();
+    	if (turn == 0) {
+    		rank.add("You must be a freacking genius！");
+    	}else if (turn == 1 || turn == 2 || turn == 3){
+    		rank.add("You are so awesome!");
+    	}else if (turn == 4 || turn == 5 || turn == 6){
+    		rank.add("You are still great!");
+    	}else if (turn == 7 || turn == 8 || turn == 9){
+    		rank.add("You could have done better!");
+    	}else {
+    		rank.add("you got it right!");
+    	}
+        return rank;
     }
 }
