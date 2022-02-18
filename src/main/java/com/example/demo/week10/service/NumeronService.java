@@ -165,7 +165,7 @@ public class NumeronService {
      * </pre>
      */
     public void addturn() {
-    	System.out.println("ターン追加させて頂きます");
+    	this.turn += 1;
     }
 
     /**
@@ -206,15 +206,20 @@ public class NumeronService {
     public List<String> getRank(int turn) {
     	List<String> rank = new ArrayList<String>();
     	if (turn == 0) {
-    		rank.add("You must be a freacking genius！");
+    		rank.add(0, "A");
+    		rank.add(1, "You must be a freacking genius！");
     	}else if (turn == 1 || turn == 2 || turn == 3){
-    		rank.add("You are so awesome!");
+    		rank.add(0, "B");
+    		rank.add(1, "You are so awesome!");
     	}else if (turn == 4 || turn == 5 || turn == 6){
-    		rank.add("You are still great!");
+    		rank.add(0, "C");
+    		rank.add(1, "You are still great!");
     	}else if (turn == 7 || turn == 8 || turn == 9){
-    		rank.add("You could have done better!");
+    		rank.add(0, "D");
+    		rank.add(1, "You could have done better!");
     	}else {
-    		rank.add("you got it right!");
+    		rank.add(0, "OK");
+    		rank.add(1, "you got it right!");
     	}
         return rank;
     }
