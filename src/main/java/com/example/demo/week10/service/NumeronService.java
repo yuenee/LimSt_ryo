@@ -27,9 +27,8 @@ public class NumeronService {
      * initメソッドを呼び出す引数無しのコンストラクタを定義してください
      * </pre>
      */
-    public NumeronService() {
+    public NumeronService(){
     	init();
-    	
     }
 
     /**
@@ -42,15 +41,16 @@ public class NumeronService {
      * @return answerList ランダム数値3桁が格納されるリスト(答えの数列)
      */
     public List<Integer> init() {
+    	this.turn = 0;
+    	this.answerList = new ArrayList<>();
     	Integer[] array = {1,2,3,4,5,6,7,8,9};
-    	List<Integer> list =Arrays.asList(array);
+    	List<Integer> list = Arrays.asList(array);
     	Collections.shuffle(list);
        	answerList.add(list.get(1));
        	answerList.add(list.get(2));
        	answerList.add(list.get(3));
-       	System.out.println(answerList + "ランダムな数値");
-    	return answerList; 	
-    	}
+    	return answerList;
+    }
 	    
     
 
@@ -73,35 +73,30 @@ public class NumeronService {
      * @param attackNumber  入力したString型の数字が格納される(入力数字)
      * @return attackResult
      */
-    public List<Integer> getAttackResult(List<Integer> answerList, String attackNumber) {
+    public List<Integer> getAttackResult(List<Integer> answerList, String attackNumber){
     
         //attackListを初期化
     	 this.attackList = new ArrayList<>();
+
         // attackNumberを1桁区切りにして、String型ListのnumberListに格納
-    	 List<String> numberList = new ArrayList<String>();  	 
-    	 String[] abc = attackNumber.split("");
-    	 Arrays.toString(abc);
-    	 numberList.add(abc[0]);
-    	 numberList.add(abc[1]);
-    	 numberList.add(abc[2]);
+    	 List<String> numberList = new ArrayList<String>();
+    	 String[] splitNumber = attackNumber.split("");
+    	 Arrays.toString(splitNumber);
+    	 numberList.add(splitNumber[0]);
+    	 numberList.add(splitNumber[1]);
+    	 numberList.add(splitNumber[2]);
         // String⇒intに変換のうえ、attackListに格納
-    	 int intVersion1 = Integer.parseInt(numberList.get(0));
-    	 attackList.add(intVersion1);
-    	 int intVersion2 = Integer.parseInt(numberList.get(1));
-    	 attackList.add(intVersion2);
-    	 int intVersion3 = Integer.parseInt(numberList.get(2));
-    	 attackList.add(intVersion3);
+    	 attackList.add(Integer.parseInt(numberList.get(0)));
+    	 attackList.add(Integer.parseInt(numberList.get(1)));
+    	 attackList.add(Integer.parseInt(numberList.get(2)));
         // hitResultにgetHitCount呼び出し結果を格納
-    	 int hitResult = getHitCount(answerList, attackList); 
-    	 System.out.println(hitResult + "hitResult");
+    	 int hitResult = getHitCount(answerList, attackList);
         // blowResultにgetBlowCount呼び出し結果を格納
     	 int blowResult = getBlowCount(answerList, attackList);
-    	 System.out.println(blowResult + "blowresult");
         // attackResultに判定結果を格納
     	 List<Integer> attackResult = new ArrayList<Integer>();
     	 attackResult.add(hitResult);
     	 attackResult.add(blowResult);
-    	 System.out.println(attackResult + "attackResult");
     	 return attackResult;
     }
 
@@ -118,18 +113,13 @@ public class NumeronService {
      * @return hitCount 数値・場所共にあっている数
      */
     public int getHitCount(List<Integer> answerList, List<Integer> attackList){
-    	System.out.println(answerList + "answer");
-    	System.out.println(attackList + "attack");
     	int hitcount = 0;
     	for (int i = 0; i < answerList.size(); i++) {
     		if (answerList.get(i) == attackList.get(i)) {
         		hitcount++;
         	}
-    		
     	}
     	return hitcount;
-    
-        // 数値と場所があっている場合の判定
     }
 
     /**
@@ -144,17 +134,16 @@ public class NumeronService {
      * @param attackList 入力数列
      * @return blowCount 数値のみあっている数
      */
-    public int getBlowCount(List<Integer> answerList, List<Integer> attackList) {
+    public int getBlowCount(List<Integer> answerList, List<Integer> attackList){
     	int blowCount = 0;
     	for (int i = 0; i < 3; i++) {
     		for (int j = 0; j < 3; j++) {
-    			if(answerList.get(i) == attackList.get(j)){
+    			if (answerList.get(i) == attackList.get(j) && answerList.get(i) != attackList.get(i)){
     				blowCount++;
     			}
     		}
     	}
     	return blowCount;
-        // 数値を使用しているが、場所があっていない場合の判定
     }
 
     /**
@@ -208,16 +197,16 @@ public class NumeronService {
     	if (turn == 0) {
     		rank.add(0, "A");
     		rank.add(1, "You must be a freacking genius！");
-    	}else if (turn == 1 || turn == 2 || turn == 3){
+    	} else if (turn == 1 || turn == 2 || turn == 3) {
     		rank.add(0, "B");
     		rank.add(1, "You are so awesome!");
-    	}else if (turn == 4 || turn == 5 || turn == 6){
+    	} else if (turn == 4 || turn == 5 || turn == 6) {
     		rank.add(0, "C");
     		rank.add(1, "You are still great!");
-    	}else if (turn == 7 || turn == 8 || turn == 9){
+    	} else if (turn == 7 || turn == 8 || turn == 9) {
     		rank.add(0, "D");
     		rank.add(1, "You could have done better!");
-    	}else {
+    	} else {
     		rank.add(0, "OK");
     		rank.add(1, "you got it right!");
     	}
